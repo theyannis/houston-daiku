@@ -22,7 +22,7 @@ return {
 	end,
 	run = function(daiku)
 		for _, name in {"act", "evaluate", "send_request", "download", "upload", "paste", "fill_secret", "browser", "feedback",
-			"workspace", "read", "navigate", "tabs", "files", "network", "recipe", "watch", "trust", "show_browser", "request_human", "listTools", "help"} do
+			"workspace", "read", "navigate", "tabs", "files", "network", "recipe", "watch", "trust", "show_browser", "request_human", "listTools"} do
 			assert(type(daiku[name]) == "function", "missing " .. name)
 		end
 

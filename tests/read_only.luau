@@ -36,7 +36,7 @@ return {
 			table.insert(names, name)
 		end
 		table.sort(names)
-		local expected = {"files", "help", "listTools", "navigate", "network", "read", "recipe", "request_human", "show_browser", "tabs", "trust", "watch", "workspace"}
+		local expected = {"files", "listTools", "navigate", "network", "read", "recipe", "request_human", "show_browser", "tabs", "trust", "watch", "workspace"}
 		assert(#names == #expected, "exports: " .. table.concat(names, ","))
 		for index, name in expected do assert(names[index] == name, "exports: " .. table.concat(names, ",")) end
 
