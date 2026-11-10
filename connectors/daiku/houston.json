@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "name": "Daiku",
+  "files": [
+    "connector.luau"
+  ],
+  "config": {
+    "access": {
+      "default": "read-only",
+      "label": "Access",
+      "description": "Read-only lets agents open and read pages. Read and write also lets them click, type, send and fill sign-ins; Daiku still asks you before anything pays, buys, sends or deletes.",
+      "options": [
+        {
+          "label": "Read-only",
+          "value": "read-only"
+        },
+        {
+          "label": "Read and write",
+          "value": "read-write"
+        }
+      ],
+      "type": "string"
+    }
+  },
+  "auth": {
+    "oauth": {
+      "type": "oauth2",
+      "label": "Connect with Daiku",
+      "authorize_url": "https://daiku.ai/authorize",
+      "token_url": "https://daiku.ai/oauth/token",
+      "client_auth": "none",
+      "pkce": "S256",
+      "client_id": "{{publisher.client_id}}",
+      "authorize_params": {
+        "resource": "https://daiku.ai/mcp"
+      },
+      "token_params": {
+        "resource": "https://daiku.ai/mcp"
+      },
+      "refresh_params": {
+        "resource": "https://daiku.ai/mcp"
+      },
+      "scopes": [
+        {
+          "values": [
+            "browser"
+          ]
+        }
+      ]
+    }
+  },
+  "publisher": {
+    "client_id": {
+      "label": "Daiku OAuth client ID",
+      "required": true,
+      "type": "string"
+    }
+  },
+  "proxy": [
+    {
+      "match": {
+        "protocol": "http",
+        "host": [
+          "daiku.ai"
+        ],
+        "method": [
+          "POST",
+          "DELETE"
+        ],
+        "path": [
+          "/mcp"
+        ]
+      },
+      "action": {
+        "headers": {
+          "set": {
+            "Authorization": "Bearer {{auth.oauth.access_token}}"
+          }
+        }
+      }
+    }
+  ]
+}
