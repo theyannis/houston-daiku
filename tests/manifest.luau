@@ -52,7 +52,8 @@ return {
 				for _, name in writes do table.insert(expected, name) end
 			end
 			table.sort(expected)
-			local exported = table.clone(result.exports)
+			local exported = {}
+			for _, name in result.exports do table.insert(exported, name) end
 			table.sort(exported)
 			assert(m.equal(exported, expected), access .. " exports changed")
 			local documented = {}
