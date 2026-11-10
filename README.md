@@ -1,36 +1,26 @@
-# Houston connector for Daiku
+---
+description: Let your agents use your own Daiku browser, signed in to your sites.
+---
 
-A [Houston](https://ok-houston.com) connector for [Daiku](https://daiku.ai), the
-user's own Chrome browser signed in to their sites. It follows the
-[houston-hub](https://github.com/aibakery/houston-hub) bundle layout and contract
-(`AUTHORING.md`).
+# Daiku
 
-The bundle is in [`connectors/daiku`](connectors/daiku):
+Daiku gives your agents a Chrome browser of your own, signed in to the sites you
+use, in Daiku's cloud or on your computer. Connect it so your agents can open
+pages, read what is on them, pull tables and data from sites you are signed in
+to, and show you the browser when a site needs you to sign in or solve a check.
 
-- `houston.json`: setup, Daiku OAuth (publisher-owned public client, PKCE) and the
-  proxy rule, limited to `POST` and `DELETE https://daiku.ai/mcp`.
-- `connector.luau`: a small client for Daiku's MCP server. Each call opens a
-  session, calls one Daiku tool with its native arguments, and ends the session.
-- `tests/`: fixtures for the read-only and read-write surfaces, stream parsing,
-  errors and proxy routes.
-- `README.md`, `SETUP.md`: what account users see.
+With **Read-only** access, agents can open and read pages, look at your tabs and
+files, and review your saved flows, watches and Daiku settings, but they cannot
+click, type, run code or send anything. Opening a page is still a visit to that
+site, so a link that does something when opened (such as an unsubscribe link)
+can take effect.
 
-## Publish on Houston Hub
+With **Read and write** access, agents can also click, type, fill sign-ins from
+your Daiku vault without seeing them, upload and download files, call a site's
+own API, save and replay flows, and set up watches and reminders. Daiku asks you
+on your phone, with Face ID or Touch ID, before anything pays, buys, sends or
+deletes, and agents can never approve for you or loosen what Daiku allows.
 
-1. Register a Daiku OAuth client once, with the publication's callback URL:
+You need a Daiku account. Your Daiku sign-in stays on Houston's server.
 
-   ```sh
-   curl -sS https://daiku.ai/oauth/register -H 'content-type: application/json' -d '{
-     "client_name": "Houston",
-     "redirect_uris": ["<Houston callback URL shown by Hub>"],
-     "grant_types": ["authorization_code", "refresh_token"],
-     "response_types": ["code"],
-     "token_endpoint_auth_method": "none",
-     "scope": "browser"
-   }'
-   ```
-
-2. In Houston Hub, open **My connectors** and publish this repository, branch
-   `main`, path `connectors/daiku/houston.json`.
-3. Enter the returned `client_id` as **Daiku OAuth client ID**.
-4. Add a connection and follow its setup to test it.
+[Connect Daiku](SETUP.md).
