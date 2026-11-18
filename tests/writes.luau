@@ -1,6 +1,6 @@
--- Read-write exports, unchanged arguments and results, and a server without session ids.
+-- Write exports, unchanged arguments and results, and a server without session ids.
 return {
-	scenario = {publisher = {client_id = "fixture-client"}, config = {access = "read-write"}, auth_method = "oauth", auth_config = {}},
+	scenario = {publisher = {client_id = "fixture-client"}, access = {data = "write"}, config = {}, auth_method = "oauth", auth_config = {}},
 	configure = function()
 		requests = {}
 		http = {request = function(req)
@@ -43,7 +43,7 @@ return {
 		assert(count == 5 and sent.action == "click" and sent.ref == "e12" and sent.workspace == "w3"
 			and sent.description == "Send the invoice" and sent.idempotency_key == "k-1", "arguments changed")
 
-		-- Actions a read-only connection refuses pass through here.
+		-- Actions a connection with Read access refuses pass through here.
 		daiku.trust({action = "ask_first", site = "bahn.de", kind = "pay"})
 		assert(json.decode(requests[6].body).params.arguments.action == "ask_first")
 		daiku.send_request({url = "/api/comment", method = "POST", json = {text = "Hi"}, workspace = "w3"})

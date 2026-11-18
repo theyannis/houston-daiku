@@ -1,6 +1,6 @@
--- Read-only exports, the MCP session (initialize, initialized, call, DELETE) and stream parsing.
+-- Read exports, the MCP session (initialize, initialized, call, DELETE) and stream parsing.
 return {
-	scenario = {publisher = {client_id = "fixture-client"}, config = {access = "read-only"}, auth_method = "oauth", auth_config = {}},
+	scenario = {publisher = {client_id = "fixture-client"}, access = {data = "read"}, config = {}, auth_method = "oauth", auth_config = {}},
 	configure = function()
 		requests = {}
 		toolPages = {

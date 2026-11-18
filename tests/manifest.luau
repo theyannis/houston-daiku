@@ -17,8 +17,8 @@ return {
 
 		local readOnly = {"files", "listTools", "navigate", "network", "read", "recipe", "request_human", "show_browser", "tabs", "trust", "watch", "workspace"}
 		local writes = {"act", "browser", "download", "evaluate", "feedback", "fill_secret", "paste", "send_request", "upload"}
-		for _, access in {"read-only", "read-write"} do
-			local r, err = m.resolve({client_id = "synthetic-public-client"}, {access = access}, {}, "oauth")
+		for _, level in {"read", "write"} do
+			local r, err = m.resolve({client_id = "synthetic-public-client"}, {}, {}, "oauth", {data = level})
 			assert(r and not err, tostring(err))
 			assert(m.equal(r.Scopes, {"browser"}), "scopes must be exactly browser")
 			r.Context.Auth["oauth"].access_token = "daiku-oauth"
@@ -45,21 +45,21 @@ return {
 			})
 			m.rejectOverrides(r, {"POST https://daiku.ai/mcp"})
 
-			local result, problem = m.exports({access = access}, "oauth", {"browser"})
+			local result, problem = m.exports({}, "oauth", {"browser"}, nil, {data = level})
 			assert(result and not problem and result.type == "result", tostring(problem))
 			local expected = table.clone(readOnly)
-			if access == "read-write" then
+			if level == "write" then
 				for _, name in writes do table.insert(expected, name) end
 			end
 			table.sort(expected)
 			local exported = {}
 			for _, name in result.exports do table.insert(exported, name) end
 			table.sort(exported)
-			assert(m.equal(exported, expected), access .. " exports changed")
+			assert(m.equal(exported, expected), level .. " exports changed")
 			local documented = {}
 			for name in string.gmatch("\n" .. result.help, "\n([^%s%(]+)%(") do table.insert(documented, name) end
 			table.sort(documented)
-			assert(m.equal(documented, expected), access .. " help does not match exports")
+			assert(m.equal(documented, expected), level .. " help does not match exports")
 			assert(#result.help < 16 * 1024, "help is too long")
 		end
 	end,

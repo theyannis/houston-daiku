@@ -3,7 +3,7 @@
 1. If you don't have a Daiku account yet, create one at
    [daiku.ai/start](https://daiku.ai/start) and sign in to the sites you want
    your agents to use.
-2. In Houston, choose **Read-only** or **Read and write** for **Access**, then
+2. In Houston, choose **Read** or **Write** for **Access**, then
    select **Connect with Daiku**.
 3. Daiku opens its sign-in page. Approve with your passkey or screen lock, then
    allow Houston to use your browser. Houston returns once you approve.
@@ -15,8 +15,8 @@
 
 ### Changing access
 
-Switching between **Read-only** and **Read and write** takes effect right away
-and doesn't need a new sign-in.
+Switching between **Read** and **Write** asks you to approve Houston in Daiku
+again, then takes effect right away.
 
 ### Troubleshooting
 

@@ -1,27 +1,27 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "name": "Daiku",
   "files": [
     "connector.luau"
   ],
-  "config": {
-    "access": {
-      "default": "read-only",
+  "access": [
+    {
+      "name": "data",
       "label": "Access",
-      "description": "Read-only lets agents open and read pages. Read and write also lets them click, type, send and fill sign-ins; Daiku still asks you before anything pays, buys, sends or deletes.",
-      "options": [
+      "description": "Read lets agents open and read pages. Write also lets them click, type, send and fill sign-ins; Daiku still asks you before anything pays, buys, sends or deletes.",
+      "levels": [
         {
-          "label": "Read-only",
-          "value": "read-only"
+          "value": "read",
+          "label": "Read"
         },
         {
-          "label": "Read and write",
-          "value": "read-write"
+          "value": "write",
+          "label": "Write"
         }
       ],
-      "type": "string"
+      "default": "read"
     }
-  },
+  ],
   "auth": {
     "oauth": {
       "type": "oauth2",

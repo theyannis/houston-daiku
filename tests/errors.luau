@@ -1,6 +1,6 @@
 -- HTTP and JSON-RPC failures: messages, retryable, no replayed calls, and session cleanup.
 return {
-	scenario = {publisher = {client_id = "fixture-client"}, config = {access = "read-write"}, auth_method = "oauth", auth_config = {}},
+	scenario = {publisher = {client_id = "fixture-client"}, access = {data = "write"}, config = {}, auth_method = "oauth", auth_config = {}},
 	configure = function()
 		requests = {}
 		initStatus, initBody, initHeaders = 200, "", {}

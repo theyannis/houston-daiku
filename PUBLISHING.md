@@ -11,7 +11,7 @@ The bundle is at the root of this repository:
   proxy rule, limited to `POST` and `DELETE https://daiku.ai/mcp`.
 - `connector.luau`: a small client for Daiku's MCP server. Each call opens a
   session, calls one Daiku tool with its native arguments, and ends the session.
-- `tests/`: fixtures for the read-only and read-write surfaces, stream parsing,
+- `tests/`: fixtures for the Read and Write surfaces, stream parsing,
   errors and proxy routes.
 - `README.md`, `SETUP.md`: what account users see.
 
